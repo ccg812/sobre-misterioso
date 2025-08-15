@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sobre romántico</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(45deg, #ffeef0, #ffd6e0);
+      background-size: 400% 400%;
+      animation: fondoMagico 15s ease infinite;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+
+    @keyframes fondoMagico {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .sobre {
+      position: relative;
+      width: 220px;
+      height: 140px;
+      background: #ffc0cb;
+      border: 2px solid #d33;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .solapa {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      background: #d33;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transition: transform 0.5s ease;
+      transform-origin: top center;
+      z-index: 2;
+    }
+
+    .sobre.abierta .solapa {
+      transform: rotateX(-90deg);
+    }
+
+    .carta-interior {
+      position: absolute;
+      top: 20px;
+      left: 10px;
+      width: 200px;
+      height: 100px;
+      background: #ffc0cb;
+      border-radius: 4px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+
+    .mensaje {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: #d33;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .sobre.abierta .mensaje {
+      opacity: 1;
+    }
+
+    .botones {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: pink;
+      color: #d33;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .corazon {
+      position: absolute;
+      font-size: 24px;
+      animation: flotar 3s linear forwards;
+    }
+
+    @keyframes flotar {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.5);
+      }
+    }
+  </style>
+</head>
+<body>
+
+ <div id="video-container" style="display:none;">
+  <iframe width="0" height="0" src="https://www.youtube.com/embed/u-QPpGYnj4Q?autoplay=1" frameborder="0" allow="autoplay"></iframe>
+</div>
+
+  <div class="sobre" id="sobre">
+    <div class="solapa"></div>
+    <div class="carta-interior"></div>
+    <div class="mensaje">I LOVE YOU SO MUCH 💘</div>
+  </div>
+
+  <div class="botones">
+    <button onclick="abrirSobre()">OPEN</button>
+    <button onclick="resetSobre()">RESET</button>
+  </div>
+
+  <script>
+    const emojis = ['💘', '💞', '💓', '❤️', '💕', '💖'];
+
+    function abrirSobre() {
+      const sobre = document.getElementById('sobre');
+      if (sobre.classList.contains('abierta')) return;
+      sobre.classList.add('abierta');
+
+      document.getElementById('video-container').style.display = 'block';
+
+      const rect = sobre.getBoundingClientRect();
+      const origenX = rect.left + rect.width / 2;
+      const origenY = rect.top + rect.height / 2;
+
+      let i = 0;
+      const total = 1000;
+      const intervalo = 5;
+
+      const lanzarCorazon = () => {
+        if (i >= total) return;
+
+        const corazon = document.createElement('div');
+        corazon.className = 'corazon';
+        corazon.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        corazon.style.left = `${origenX}px`;
+        corazon.style.top = `${origenY}px`;
+
+        const x = (Math.random() - 0.5) * 300 + 'px';
+        const y = -Math.random() * 300 + 'px';
+        corazon.style.setProperty('--x', x);
+        corazon.style.setProperty('--y', y);
+        corazon.style.animationDuration = (2 + Math.random() * 2) + 's';
+
+        document.body.appendChild(corazon);
+        setTimeout(() => corazon.remove(), 4000);
+
+        i++;
+        setTimeout(lanzarCorazon, intervalo);
+      };
+
+      lanzarCorazon();
+    }
+
+    function resetSobre() {
+      const sobre = document.getElementById('sobre');
+      sobre.classList.remove('abierta');
+    }
+  </script>
+
+</body>
+</html>
