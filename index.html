@@ -146,7 +146,13 @@
       if (sobre.classList.contains('abierta')) return;
       sobre.classList.add('abierta');
 
-      document.getElementById('video-container').style.display = 'block';
+      // Crear iframe dinámicamente tras interacción
+  const contenedor = document.getElementById('video-container');
+  contenedor.innerHTML = `
+    <iframe width="0" height="0" src="https://www.youtube.com/embed/u-QPpGYnj4Q?autoplay=1" frameborder="0" allow="autoplay"></iframe>
+  `;
+  contenedor.style.display = 'block';
+
 
       const rect = sobre.getBoundingClientRect();
       const origenX = rect.left + rect.width / 2;
@@ -190,4 +196,5 @@
 </body>
 
 </html>
+
 
