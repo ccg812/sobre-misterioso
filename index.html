@@ -123,7 +123,9 @@
 </head>
 <body>
 
- <audio id="musica" src="tu-cancion.mp3">"C:\Users\crist\Downloads\alan-arrieta-nina-video-oficial-128-ytshorts.savetube.me.mp3"</audio>
+ <div id="video-container" style="display:none;">
+  <iframe width="0" height="0" src="https://www.youtube.com/embed/u-QPpGYnj4Q?autoplay=1" frameborder="0" allow="autoplay"></iframe>
+</div>
 
   <div class="sobre" id="sobre">
     <div class="solapa"></div>
@@ -145,7 +147,7 @@
   sobre.classList.add('abierta');
 
 
-      document.getElementById('musica').play();
+      document.getElementById('video-container').style.display = 'block';
 
 
       const rect = sobre.getBoundingClientRect();
