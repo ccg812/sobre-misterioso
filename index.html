@@ -123,9 +123,7 @@
 </head>
 <body>
 
- <div id="video-container" style="display:none;">
-  <iframe width="0" height="0" src="https://www.youtube.com/embed/u-QPpGYnj4Q?autoplay=1" frameborder="0" allow="autoplay"></iframe>
-</div>
+ <audio id="musica" src="tu-cancion.mp3">"C:\Users\crist\Downloads\alan-arrieta-nina-video-oficial-128-ytshorts.savetube.me.mp3"</audio>
 
   <div class="sobre" id="sobre">
     <div class="solapa"></div>
@@ -147,12 +145,7 @@
   sobre.classList.add('abierta');
 
 
-      // Crear iframe dinámicamente tras interacción
-  const contenedor = document.getElementById('video-container');
-  contenedor.innerHTML = `
-    <iframe width="0" height="0" src="https://www.youtube.com/embed/u-QPpGYnj4Q?autoplay=1" frameborder="0" allow="autoplay"></iframe>
-  `;
-  contenedor.style.display = 'block';
+      document.getElementById('musica').play();
 
 
       const rect = sobre.getBoundingClientRect();
@@ -197,6 +190,7 @@
 </body>
 
 </html>
+
 
 
 
